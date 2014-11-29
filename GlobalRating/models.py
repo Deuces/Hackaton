@@ -22,6 +22,7 @@ class Rating(db.Model):
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.String(256), index=True, unique=True)
     type = db.Column(db.String(64), index=True, unique=True)
     parent_id = db.Column(db.Integer, index=True, nullable=True)
     address = db.Column(db.String(64), index=True, nullable=True)

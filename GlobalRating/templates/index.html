@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-9">
+            <div class="row">
+
+                {% for item in items %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+                        <img src="../static/images/kpi_small.png" alt="">
+                        <div class="caption">
+                            <!-- <h4 class="pull-right">$24.99</h4> -->
+                            <h4><a href="shop_item.html">{{item.name}}</a>
+                            </h4>
+                            <p>{{item.description}}</p>
+                        </div>
+                        <div class="ratings">
+                            <!-- <p class="pull-right">15 votes</p> -->
+                            <p>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                                <span class="glyphicon glyphicon-star"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
