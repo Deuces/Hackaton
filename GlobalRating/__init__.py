@@ -5,4 +5,4 @@ app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 
-import GlobalRating.view
+from GlobalRating import view, models
