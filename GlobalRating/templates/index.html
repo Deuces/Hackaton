@@ -12,21 +12,22 @@
                 {% for item in items %}
                 <div class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
-                        <img src="../static/images/kpi_small.png" alt="">
+                        <img src="{{item.category.url}}" alt="">
                         <div class="caption">
                             <!-- <h4 class="pull-right">$24.99</h4> -->
-                            <h4><a href="shop_item.html">{{item.name}}</a>
+                            <h4><a href="item/{{item.category.id}}">{{item.category.name}}</a>
                             </h4>
-                            <p>{{item.description}}</p>
+                            <p>{{item.category.description}}</p>
                         </div>
                         <div class="ratings">
-                            <!-- <p class="pull-right">15 votes</p> -->
+                            <p class="pull-right">{{item.votes}} votes</p>
                             <p>
+                                {% for star in range(item.stars) %}
                                 <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
-                                <span class="glyphicon glyphicon-star"></span>
+                                {% endfor %}
+                                {% for star in range(5-item.stars) %}
+                                <span class="glyphicon glyphicon-star-empty"></span>
+                                {% endfor %}
                             </p>
                         </div>
                     </div>
