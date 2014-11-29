@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-12">
                 <span class="pull-right">{{child.votes}} votes</span>
-                <p>{{child.category.name}}</p>
+                <a href="../item/{{child.category.id}}">{{child.category.name}}</a>
                 <p>
                     {% for star in range(child.stars) %}
                     <span class="glyphicon glyphicon-star"></span>
