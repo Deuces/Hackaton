@@ -85,6 +85,7 @@ def show_info():
     f.close()
     return render_template('infograph.html')
 
+
 @app.route('/item/<item_id>', methods=['GET', 'POST'])
 def show_item(item_id):
     form = RatingForm()
@@ -96,13 +97,14 @@ def show_item(item_id):
         children_cat = get_all_children(item_id)
         children = []
         for i in children_cat:
-            stars, votes = get_mark_and_voices(i.id)
+            null, votes = get_mark_and_voices(i.id)
             children.append({
                 "category": i,
-                "stars": stars,
+                "stars": get_rating(i.id),
                 "votes": votes
             })
-        stars, votes = get_mark_and_voices(item_id)
+        null, votes = get_mark_and_voices(item_id)
+        stars = get_rating(item_id)
 
         votable = True
         if g.user.is_authenticated():

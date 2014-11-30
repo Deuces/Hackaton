@@ -27,9 +27,20 @@ def get_all_children(id):
     return query.all()
 
 
+def get_rating(id):
+    if get_all_children(id) is None:
+        return get_mark_and_voices(id)
+    else:
+        mark, null = get_mark_and_voices(id)
+        count = 1
+        for i in get_all_children(id):
+            mark += get_rating(i.id)
+            count += 1
+        return int(round(mark / count))
+
+
 def get_mark_and_voices(id):
     query = db.session.query(Rating).filter(Rating.cat_id == id)
-
     mas = query.all()
     sum_mas = 0
     for mark in mas:
@@ -77,4 +88,6 @@ def add_category(name, type, parent=-1, description="There is no description", a
 
         if test:
             rate_category(1, get_category_by_name(name), random.randint(1, 5))
+
+
 1
