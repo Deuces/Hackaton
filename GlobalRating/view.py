@@ -31,3 +31,7 @@ def show_item(item_id):
         })
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+
+@app.route('/start.html')
+def start():
+    return render_template('start.html')
