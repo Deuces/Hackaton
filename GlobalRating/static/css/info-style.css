@@ -4,9 +4,17 @@
 }
 .chart rect {
     fill: steelblue;
+    	-moz-transition: all 0.3s;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.chart rect:hover {
+	fill: orange;
 }
 .graphic {
-    padding: 0px 5px;
+    margin:  20px 10px auto;
+    max-height: 1800px;
 }
 .chart text {
   fill: white;

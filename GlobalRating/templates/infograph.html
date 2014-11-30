@@ -3,11 +3,12 @@
 
     <link href="../static/css/info-style.css" rel="stylesheet">
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type=text/javascript src="../Script/jquery1.4.1.min.js"></script>
 <!-- Page Content -->
     <h2 class="head"> РЕЙТИНГ<small><br> ІНФОГРАФІКА РОБИТЬ НУДНІ ДАНІ ЦІКАВИМИ</small></h2>
-<svg class="chart" width="40" height="40"></svg>
+<svg class="chart graphic" width="400" height="100"></svg>
 <script>
-var width = 420,
+var width = 900,
     barHeight = 20;
 
 var x = d3.scale.linear()
@@ -21,10 +22,11 @@ var chart = d3.select(".chart")
 
   chart.attr("height", barHeight * data.length);
 
+
   var bar = chart.selectAll("g")
       .data(data)
     .enter().append("g")
-      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
+      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
 
   bar.append("rect")
       .attr("width", function(d) { return x(d.value); })
@@ -35,12 +37,13 @@ var chart = d3.select(".chart")
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
       .text(function(d) { return d.value; });
+        var y = d3.scale.linear()
+    .range([height, 0]);
 });
 
 function type(d) {
   d.value = +d.value; // coerce to number
   return d;
 }
-
 </script>
 {% endblock %}

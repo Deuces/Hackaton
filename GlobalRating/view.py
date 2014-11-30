@@ -74,6 +74,14 @@ def index():
 
 @app.route('/info')
 def show_info():
+    f = codecs.open('GlobalRating/static/js/data.tsv', 'w', 'utf-8')
+    categories = get_all('university')
+    f.write("name" + "\t" + "value" + "\n")
+    mas = []
+    for i in range(len(categories)-5):
+        mark, voices = get_mark_and_voices(categories[i].id)
+        f.write(categories[i].name.replace("\n  ", "") + "\t" + str(mark) + "\n")
+    f.close()
     return render_template('infograph.html')
 
 
