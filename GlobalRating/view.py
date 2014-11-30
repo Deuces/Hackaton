@@ -1,11 +1,11 @@
 import codecs
 
 from flask import render_template, flash, redirect, url_for, request, g
-from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.login import login_user, logout_user, current_user, login_required
 
 from GlobalRating import app, oid, lm
 from GlobalRating.dbAPI import *
-from GlobalRating.forms import RatingForm
+from GlobalRating.forms import RatingForm, AddForm
 from GlobalRating.models import ROLE_USER
 from config import OPENID_PROVIDERS
 
@@ -89,7 +89,6 @@ def show_info():
 def show_item(item_id):
     form = RatingForm()
     if request.method == 'POST':
-        print g.user.get_id() + "\t" + str(item_id)
         rate_category(int(g.user.get_id()), item_id, int(form.rating.data))
         return redirect(url_for('index'))
     else:
@@ -107,16 +106,23 @@ def show_item(item_id):
 
         votable = True
         if g.user.is_authenticated():
-            query = db.session.query(Rating).filter(Rating.usr_id == int(g.user.get_id())).filter(Rating.cat_id == item_id).first()
+            query = db.session.query(Rating).filter(Rating.usr_id == int(g.user.get_id())).filter(
+                Rating.cat_id == item_id).first()
             if query is not None:
                 votable = False
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars, votable=votable,
                            form=form)
 
 
-@app.route('/add.html')
-def add():
-    return render_template('add.html')
+@app.route('/add/<id>', methods=['POST', 'GET'])
+@login_required
+def add_child(id):
+    form = AddForm()
+    if request.method == 'POST':
+        add_category(form.name.data, form.type.data, parent=id, description=form.description.data, url=form.url.data,
+                     address=form.address.data)
+        return redirect(url_for('index'))
+    return render_template('add.html', id=id, form=form)
 
 
 @app.route('/about.html')
