@@ -1,3 +1,5 @@
+import codecs
+
 from flask import render_template, flash, redirect, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user
 
@@ -72,6 +74,12 @@ def index():
 
 @app.route('/info')
 def show_info():
+    f = codecs.open("GlobalRating/static/js/data.tsv", "w", "utf-8")
+    categories = get_all('university')
+    for cat in categories:
+        mark, tmp = get_mark_and_voices(cat.id)
+        f.write(cat.name + "\t" + str(mark) + "\n")
+    f.close()
     return render_template('infograph.html')
 
 
@@ -89,8 +97,3 @@ def show_item(item_id):
         })
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
-
-
-@app.route('/')
-def start():
-    return render_template('start.html')

@@ -5,7 +5,7 @@
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <!-- Page Content -->
     <h2 class="head"> РЕЙТИНГ<small><br> ІНФОГРАФІКА РОБИТЬ НУДНІ ДАНІ ЦІКАВИМИ</small></h2>
-<svg class="chart"></svg>
+<svg class="chart" width="40" height="40"></svg>
 <script>
 var width = 420,
     barHeight = 20;
@@ -16,7 +16,7 @@ var x = d3.scale.linear()
 var chart = d3.select(".chart")
     .attr("width", width);
 
-    d3.tsv("data.tsv", type, function(error, data) {
+    d3.tsv("../static/js/data.tsv", type, function(error, data) {
     x.domain([0, d3.max(data, function(d) { return d.value; })]);
 
   chart.attr("height", barHeight * data.length);
