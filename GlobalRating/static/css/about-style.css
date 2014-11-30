@@ -4,12 +4,17 @@
 }
 .container a{
     color: black;
-
+}
+.container h2{
+    margin-left: 40%;
+}
+.container .out-sites li{
+    display: inline-block;
+    margin-left: 10px;
 }
 
-
 .container .out-sites {
-    font-size: 2em;
+    font-size: 1.3em;
 }
 
 .container .out-sites, .container img {
