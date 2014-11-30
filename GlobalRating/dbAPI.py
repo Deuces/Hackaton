@@ -1,3 +1,4 @@
+import random
 from GlobalRating import db
 from GlobalRating.models import Category, Rating, User
 
@@ -10,6 +11,11 @@ def get_all(type):
 def get_category(id):
     query = Category.query.get(id)
     return query
+
+
+def get_category_by_name(name):
+    query = db.session.query(Category).filter(Category.name == name)
+    return query.first().id
 
 
 def get_user(id):
@@ -51,12 +57,24 @@ def add_user(name, email):
     db.session.commit()
 
 
-def add_category(name, description, type, parent="root", address="lool",
-                 url="http://cs411222.vk.me/v411222468/2129/DudmSflxmSQ.jpg"):
-    cat = Category(name=name, description=description, type=type,
-                   parent_id=parent, address=address, url=url)
-    rating = Rating(mark=0, category=cat)
-    db.session.add(cat)
-    db.session.add(rating)
-    db.session.commit()
+def is_uniq(name, id):
+    mas = get_all_children(id)
+    for i in mas:
+        if i.name == name:
+            return False
+    return True
 
+
+def add_category(name, type, parent=-1, description="There is no description", address="lool",
+                 url="http://cs411222.vk.me/v411222468/2129/DudmSflxmSQ.jpg", test=False):
+    if is_uniq(name, parent):
+        cat = Category(name=name, description=description, type=type,
+                       parent_id=parent, address=address, url=url)
+        rating = Rating(mark=0, category=cat)
+        db.session.add(cat)
+        db.session.add(rating)
+        db.session.commit()
+
+        if test:
+            rate_category(1, get_category_by_name(name), random.randint(1, 5))
+1
