@@ -1,0 +1,73 @@
+html{
+	font: normal 14px "PT Sans", Tahoma, Arial;
+}
+body{
+	margin: 0 auto;
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	background-image: url("http://www.macwallpapers.eu/bulkupload/Resolution/1600x1200/4//1600x1200/1600x1200%20Desktop%20The%20Sky%20Is%20Falling.jpg");
+	/*background-image: url("static/images/background-image1.png");*/
+	max-width: 100%;
+}
+
+header{
+	margin: 0;
+	padding: 0;
+	font-size: 2em;
+}
+.clearfix{
+	clear: both;
+	content: '';
+	display: block;
+}
+/*
+************  header	*************
+*/
+.rate-logo{
+	margin-top: 3%;
+	margin-left: 42%;
+}
+header h1 {
+	margin-left: 46%;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	color: white;
+
+}
+header h2 {
+	margin-left: 42%;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	color: white;
+}
+header h3 {
+	font-size: 0.7em;
+	margin-left: 39%;
+	color: white;
+}
+header ul{
+	margin-left: 38%;
+	color: white;
+}
+.socials li{
+	display: inline-block;
+	list-style: none;
+}
+.btnEnterNoRegistr {
+	border: 2px solid #00c6ff;
+	width: 320px;
+	height: 40px;
+	text-align: center;
+	margin-left: 40%;
+	border-radius: 5px;
+	background-color: #00c6ff;
+	text-decoration: none;
+	/*font-size: 0.5em;*/
+}
+
+.linked {
+	text-decoration: none;
+	color: white;
+}
+
