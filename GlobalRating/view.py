@@ -87,18 +87,22 @@ def show_info():
 
 @app.route('/item/<item_id>', methods=['GET', 'POST'])
 def show_item(item_id):
-    item = get_category(item_id)
-    children_cat = get_all_children(item_id)
-    children = []
-    for i in children_cat:
-        stars, votes = get_mark_and_voices(i.id)
-        children.append({
-            "category": i,
-            "stars": stars,
-            "votes": votes
-        })
-    stars, votes = get_mark_and_voices(item_id)
-    return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+    form = RatingForm()
+    if request.method == 'POST':
+        rate_category(int(g.user.get_id()), item_id, int(form.rating.data))
+        return redirect(url_for('index'))
+    else:
+        item = get_category(item_id)
+        children_cat = get_all_children(item_id)
+        children = []
+        for i in children_cat:
+            stars, votes = get_mark_and_voices(i.id)
+            children.append({
+                "category": i,
+                "stars": stars,
+                "votes": votes
+            })
+        stars, votes = get_mark_and_voices(item_id)
 
         votable = True
         if g.user.is_authenticated():
