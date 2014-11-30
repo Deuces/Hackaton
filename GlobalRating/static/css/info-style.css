@@ -1,0 +1,19 @@
+* {
+    margin:  0;
+    padding: 0;
+}
+.chart rect {
+    fill: steelblue;
+}
+.graphic {
+    padding: 0px 5px;
+}
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+.head {
+    margin: 0 auto;
+    text-align: center;
+}

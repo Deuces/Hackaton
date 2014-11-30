@@ -69,6 +69,10 @@ def index():
         })
     return render_template('index.html', items=items)
 
+@app.route('/info')
+def show_info():
+    return render_template('infograph.html')
+
 
 @app.route('/item/<item_id>')
 def show_item(item_id):
@@ -84,3 +88,7 @@ def show_item(item_id):
         })
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+
+@app.route('/')
+def start():
+    return render_template('start.html')
