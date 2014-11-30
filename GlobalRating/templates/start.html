@@ -15,24 +15,24 @@
 				<h1>Rate</h1>
 				<h2>Все рейтинги</h2>
 				<h3>Используйте социальные сети для входа:</h3>
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				<ul>
+					{% for message in messages %}
+					<li>{{ message }} </li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
 				<div class="socials">
 					<ul>
 						<li>
-							<a class="login-facebook" href="https://www.facebook.com/"><img src="../static/images/facebook-logo-small.png"></a>
-						</li>
-						<li>
-							<a class="login-twitter" href="https://twitter.com/"><img src="../static/images/twitter-logo-small.png"></a>
-						</li>
-						<li>
-							<a class="login-vk" href="https://vk.com/"><img src="../static/images/vk-logo-small.png"></a>
-						</li>
-						<li>
-							<a class="login-google-plus" href="https://plus.google.com/"><img src="../static/images/google-plus-logo-small.png"></a>
+							<a class="login-google-plus" href="/try_auth/0"><img src="../static/images/google-plus-logo-small.png"></a>
 						</li>
 					</ul>
 				</div>
 				<figure class="btnEnterNoRegistr">
-					<a class="linked" href="index.html">Войти без регистрации</a>
+					<a class="linked" href="index">Войти без регистрации</a>
 				</figure>
 			</header>
 	</body>
