@@ -76,14 +76,14 @@ def index():
 
 @app.route('/info')
 def show_info():
-    f = codecs.open('/GlobalRating/static/js/data.tsv', "w", "utf-8")
+    f = codecs.open('GlobalRating/static/js/data.tsv', "w", "utf-8")
     categories = get_all('university')
-    for i in categories:
-        mark, voices = get_mark_and_voices(i.id)
-        f.write(i.name + "\t" + str(mark) + "\n")
-    g.close
+    f.write("name" + "\t" + "value" + "\n")
+    for i in range(len(categories)-5):
+        mark, voices = get_mark_and_voices(categories[i].id)
+        f.write(categories[i].name + "\t" + str(mark) + "\n")
+    f.close()
     return render_template('infograph.html')
-
 
 @app.route('/item/<item_id>', methods=['GET', 'POST'])
 def show_item(item_id):
