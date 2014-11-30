@@ -1,5 +1,6 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
-from flask.ext.login import login_user, logout_user, current_user, login_required
+from flask import render_template, flash, redirect, url_for, request, g
+from flask.ext.login import login_user, logout_user, current_user
+
 from GlobalRating import app, oid, lm
 from GlobalRating.dbAPI import *
 from GlobalRating.models import ROLE_USER
@@ -49,7 +50,6 @@ def after_login(resp):
     return redirect(url_for('index'))
 
 
-
 @app.route('/logout')
 def logout():
     logout_user()
@@ -68,6 +68,7 @@ def index():
             "votes": votes
         })
     return render_template('index.html', items=items)
+
 
 @app.route('/info')
 def show_info():
@@ -88,6 +89,7 @@ def show_item(item_id):
         })
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+
 
 @app.route('/')
 def start():
