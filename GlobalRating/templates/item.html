@@ -11,16 +11,15 @@
         </div>
         <div class="ratings">
             <p class="pull-right">{{votes}} votes</p>
-            <div class="radio-group">
-                <ul>
-                    <li><label><input type="radio">1</label></li>
-                    <li><label><input type="radio">2</label></li>
-                    <li><label><input type="radio">3</label></li>
-                    <li><label><input type="radio">4</label></li>
-                    <li><label><input type="radio">5</label></li>
-                </ul>
-            </div>
-            <button type="button" class="btn btn-danger btn-rate">Rate</button>
+            {% if g.user.is_authenticated() %}
+            {% if votable %}
+            <form action="../item/{{item.id}}" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.rating }}
+                <input type="submit"/>
+            </form>
+            {% endif %}
+            {% endif %}
             <p>
                 {% for star in range(stars) %}
                 <span class="glyphicon glyphicon-star"></span>

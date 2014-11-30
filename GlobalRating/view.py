@@ -5,6 +5,7 @@ from flask.ext.login import login_user, logout_user, current_user
 
 from GlobalRating import app, oid, lm
 from GlobalRating.dbAPI import *
+from GlobalRating.forms import RatingForm
 from GlobalRating.models import ROLE_USER
 from config import OPENID_PROVIDERS
 
@@ -59,6 +60,7 @@ def logout():
 
 
 @app.route('/index')
+@app.route('/index.html')
 def index():
     categories = get_all("university")
     items = []
@@ -74,23 +76,42 @@ def index():
 
 @app.route('/info')
 def show_info():
+    f = codecs.open('/GlobalRating/static/js/data.tsv', "w", "utf-8")
+    categories = get_all('university')
+    for i in categories:
+        mark, voices = get_mark_and_voices(i.id)
+        f.write(i.name + "\t" + str(mark) + "\n")
+    g.close
     return render_template('infograph.html')
 
 
-@app.route('/item/<item_id>')
+@app.route('/item/<item_id>', methods=['GET', 'POST'])
 def show_item(item_id):
-    item = get_category(item_id)
-    children_cat = get_all_children(item_id)
-    children = []
-    for i in children_cat:
-        stars, votes = get_mark_and_voices(i.id)
-        children.append({
-            "category": i,
-            "stars": stars,
-            "votes": votes
-        })
-    stars, votes = get_mark_and_voices(item_id)
-    return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+    form = RatingForm()
+    if request.method == 'POST':
+        print g.user.get_id() + "\t" + str(item_id)
+        rate_category(int(g.user.get_id()), item_id, int(form.rating.data))
+        return redirect(url_for('index'))
+    else:
+        item = get_category(item_id)
+        children_cat = get_all_children(item_id)
+        children = []
+        for i in children_cat:
+            stars, votes = get_mark_and_voices(i.id)
+            children.append({
+                "category": i,
+                "stars": stars,
+                "votes": votes
+            })
+        stars, votes = get_mark_and_voices(item_id)
+
+        votable = True
+        if g.user.is_authenticated():
+            query = db.session.query(Rating).filter(Rating.usr_id == int(g.user.get_id())).filter(Rating.cat_id == item_id).first()
+            if query is not None:
+                votable = False
+    return render_template('item.html', item=item, children=children, votes=votes, stars=stars, votable=votable,
+                           form=form)
 
 
 @app.route('/add.html')
