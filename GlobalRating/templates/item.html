@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
-<link href="static/css/index-style.css" rel="stylesheet">
+<link href="../static/css/item-style.css" rel="stylesheet">
 
 <div class="col-md-9 layout">
-
     <div class="thumbnail">
         <img class="img-responsive" src="{{item.url}}" alt="">
         <div class="caption-full">
@@ -12,6 +11,16 @@
         </div>
         <div class="ratings">
             <p class="pull-right">{{votes}} votes</p>
+            <div class="radio-group">
+                <ul>
+                    <li><label><input type="radio">1</label></li>
+                    <li><label><input type="radio">2</label></li>
+                    <li><label><input type="radio">3</label></li>
+                    <li><label><input type="radio">4</label></li>
+                    <li><label><input type="radio">5</label></li>
+                </ul>
+            </div>
+            <button type="button" class="btn btn-danger btn-rate">Rate</button>
             <p>
                 {% for star in range(stars) %}
                 <span class="glyphicon glyphicon-star"></span>

@@ -1,0 +1,22 @@
+.layout{
+    width: 75%;
+    margin-left: 13%;
+}
+.radio-group li {
+    list-style: none;
+    display: inline-block;
+}
+.radio-group label{
+    font-size: 1.2em;
+}
+.radio-group input{
+    margin: 0 3px;
+
+}
+.radio-group, .btn-rate{
+    margin-bottom: 10px;
+    display: inline-block;
+}
+.btn-rate {
+    margin-left: 5px;
+}
