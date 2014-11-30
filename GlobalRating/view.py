@@ -91,3 +91,13 @@ def show_item(item_id):
         })
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
+
+
+@app.route('/add.html')
+def add():
+    return render_template('add.html')
+
+
+@app.route('/about.html')
+def about():
+    return render_template('about.html')
