@@ -1,5 +1,6 @@
 from flask import render_template
 from GlobalRating import app
+# from __future__ import print_function
 from GlobalRating.dbAPI import *
 
 
@@ -15,6 +16,10 @@ def index():
             "votes": votes
         })
     return render_template('index.html', items=items)
+
+@app.route('/info')
+def show_info():
+    return render_template('infograph.html')
 
 
 @app.route('/item/<item_id>')
