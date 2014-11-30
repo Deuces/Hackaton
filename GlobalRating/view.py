@@ -1,10 +1,11 @@
 import codecs
 
 from flask import render_template, flash, redirect, url_for, request, g
-from flask.ext.login import login_user, logout_user, current_user
+from flask.ext.login import login_user, logout_user, current_user, login_required
 
 from GlobalRating import app, oid, lm
 from GlobalRating.dbAPI import *
+from GlobalRating.forms import RatingForm, AddForm
 from GlobalRating.models import ROLE_USER
 from config import OPENID_PROVIDERS
 
@@ -59,6 +60,7 @@ def logout():
 
 
 @app.route('/index')
+@app.route('/index.html')
 def index():
     categories = get_all("university")
     items = []
@@ -74,18 +76,16 @@ def index():
 
 @app.route('/info')
 def show_info():
-    f = codecs.open('GlobalRating/static/js/data.tsv', 'w', 'utf-8')
+    f = codecs.open('/GlobalRating/static/js/data.tsv', "w", "utf-8")
     categories = get_all('university')
-    f.write("name" + "\t" + "value" + "\n")
-    mas = []
-    for i in range(len(categories)-5):
-        mark, voices = get_mark_and_voices(categories[i].id)
-        f.write(categories[i].name.replace("\n  ", "") + "\t" + str(mark) + "\n")
-    f.close()
+    for i in categories:
+        mark, voices = get_mark_and_voices(i.id)
+        f.write(i.name + "\t" + str(mark) + "\n")
+    g.close
     return render_template('infograph.html')
 
 
-@app.route('/item/<item_id>')
+@app.route('/item/<item_id>', methods=['GET', 'POST'])
 def show_item(item_id):
     item = get_category(item_id)
     children_cat = get_all_children(item_id)
@@ -100,10 +100,26 @@ def show_item(item_id):
     stars, votes = get_mark_and_voices(item_id)
     return render_template('item.html', item=item, children=children, votes=votes, stars=stars)
 
+        votable = True
+        if g.user.is_authenticated():
+            query = db.session.query(Rating).filter(Rating.usr_id == int(g.user.get_id())).filter(
+                Rating.cat_id == item_id).first()
+            if query is not None:
+                votable = False
+    return render_template('item.html', item=item, children=children, votes=votes, stars=stars, votable=votable,
+                           form=form)
 
-@app.route('/add.html')
-def add():
-    return render_template('add.html')
+
+@app.route('/add/<id>', methods=['POST', 'GET'])
+@login_required
+def add_child(id):
+    form = AddForm()
+    if request.method == 'POST':
+        address = ''.join(form.address.data.split())
+        add_category(form.name.data, form.type.data, parent=id, description=form.description.data, url=form.url.data,
+                     address=address)
+        return redirect(url_for('index'))
+    return render_template('add.html', id=id, form=form)
 
 
 @app.route('/about.html')

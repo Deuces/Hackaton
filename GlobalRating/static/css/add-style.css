@@ -3,5 +3,9 @@
     margin-left: 13%;
 }
 .container{
-    width: 50%;
+    width: 75%;
+}
+
+.form-group {
+    width: 75%;
 }

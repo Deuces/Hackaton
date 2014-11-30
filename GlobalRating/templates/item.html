@@ -6,21 +6,20 @@
     <div class="thumbnail">
         <img class="img-responsive" src="{{item.url}}" alt="">
         <div class="caption-full">
-            <h4>{{item.name}}</h4>
+            <h4><b>{{item.type}}</b>  {{item.name}}</h4>
             <p>{{item.description}}</p>
         </div>
         <div class="ratings">
             <p class="pull-right">{{votes}} votes</p>
-            <div class="radio-group">
-                <ul>
-                    <li><label><input type="radio">1</label></li>
-                    <li><label><input type="radio">2</label></li>
-                    <li><label><input type="radio">3</label></li>
-                    <li><label><input type="radio">4</label></li>
-                    <li><label><input type="radio">5</label></li>
-                </ul>
-            </div>
-            <button type="button" class="btn btn-danger btn-rate">Rate</button>
+            {% if g.user.is_authenticated() %}
+            {% if votable %}
+            <form action="../item/{{item.id}}" method="post">
+                {{ form.hidden_tag() }}
+                {{ form.rating(class_="radio-group") }}
+                <input class="btn btn-danger" type="submit"/>
+            </form>
+            {% endif %}
+            {% endif %}
             <p>
                 {% for star in range(stars) %}
                 <span class="glyphicon glyphicon-star"></span>
@@ -30,13 +29,19 @@
                 {% endfor %}
             </p>
         </div>
+        <iframe
+            width=100%
+            height="400"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCxNpOsxTXjst4JUO3nugNaYCotumk0sog
+            &q={{item.address}}">
+            </iframe>
     </div>
 
     <div class="well">
 
         <div class="text-right">
-            <a href="../add.html" class="btn btn-success">Add type</a>
-            <a href="../add.html" class="btn btn-success">Add subtype</a>
+            <a href="../add/{{item.id}}" class="btn btn-success">Add</a>
         </div>
 
         <hr>

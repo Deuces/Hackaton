@@ -2,6 +2,7 @@
 {% block content %}
 
 <!-- Page Content -->
+<link href="../static/css/index-style.css" rel="stylesheet">
 <div class="container">
 
     <div class="row">
@@ -32,12 +33,18 @@
                     </div>
                 </div>
                 {% endfor %}
-
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail">
+            <a href="/add/-1"><img class="add-img" src="http://www.downloadclipart.net/medium/10577-add-button-clip-art.png"></a>
+                    <h4 class="new-univ"><a href="/add.html">Додати новий університет</a></h4>
+                        <p class="new-descript">Будь-ласка здеріть основну інформацію перед додаванням нового університету! </p>
+                    </div></div>
             </div>
 
         </div>
 
     </div>
+
 
 </div>
 {% endblock %}
