@@ -119,8 +119,9 @@ def show_item(item_id):
 def add_child(id):
     form = AddForm()
     if request.method == 'POST':
+        address = ''.join(form.address.data.split())
         add_category(form.name.data, form.type.data, parent=id, description=form.description.data, url=form.url.data,
-                     address=form.address.data)
+                     address=address)
         return redirect(url_for('index'))
     return render_template('add.html', id=id, form=form)
 

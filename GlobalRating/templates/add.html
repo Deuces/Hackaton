@@ -9,25 +9,25 @@
             {{form.hidden_tag()}}
             <p>
                 Name: <br/>
-                {{form.name}}
+                {{form.name(class_="form-control")}}
             </p>
             <p>
                 Type: <br/>
-                {{form.type}}
+                {{form.type(class_="form-control")}}
             </p>
             <p>
                 Description: <br/>
-                {{form.description}}
+                {{form.description(class_="form-control")}}
             </p>
             <p>
                 Image: <br/>
-                {{form.url}}
+                {{form.url(class_="form-control")}}
             </p>
             <p>
                 Address: <br/>
-                {{form.address}}
+                {{form.address(class_="form-control")}}
             </p>
-            <input type="submit"/>
+            <input class="btn btn-success" type="submit"/>
         </form>
       </div>
 </div>
