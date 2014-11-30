@@ -1,0 +1,17 @@
+.container li{
+    text-decoration: none;
+    list-style: none;
+}
+.container a{
+    color: black;
+
+}
+
+
+.container .out-sites {
+    font-size: 2em;
+}
+
+.container .out-sites, .container img {
+    display: inline-block;
+}

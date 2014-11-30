@@ -27,11 +27,12 @@ body {
 }
 
 .caption h4 {
-    white-space: nowrap;
+    white-space: normal;
 }
 
 .thumbnail img {
-    width: 100%;
+    width: 80%;
+    margin-top: 2%;
 }
 
 .ratings {
